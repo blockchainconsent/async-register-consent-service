@@ -1,0 +1,73 @@
+{
+  "name": "async-register-consent-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint . --ext .js,.ts --max-warnings 0",
+    "lint:fix": "./node_modules/.bin/eslint . --fix --ext .js,.ts --max-warnings 0",
+    "start:dev": "nodemon -r dotenv/config server.js",
+    "start": "node -r dotenv/config server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mocha-test": "mocha -r dotenv/config 'mochaTests/testFiles/*.js' --exit",
+    "test-unit": "mocha -r dotenv/config 'unitTests/*.js' --exit",
+    "coverage": "nyc npm run mocha-test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HCLS-Consent-Manager/async-register-consent-service.git"
+  },
+  "author": "",
+  "license": "",
+  "nyc": {
+    "exclude": [
+      "mochaTests/*"
+    ]
+  },
+  "dependencies": {
+    "@cloudnative/health": "^2.1.2",
+    "@cloudnative/health-connect": "^2.1.0",
+    "atob": "^2.1.2",
+    "axios": "^0.21.1",
+    "cls-hooked": "^4.2.2",
+    "connect-timeout": "^1.9.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "hcls-common": "git+ssh://git@github.com:HCLS-Consent-Manager/hcls-common.git",
+    "ibmcloud-appid": "^6.1.1",
+    "kafkajs": "^1.15.0",
+    "log4js": "^6.3.0",
+    "moment": "^2.29.1",
+    "newrelic": "^7.5.0",
+    "nyc": "^15.1.0",
+    "passport": "^0.4.1",
+    "querystring": "^0.2.1",
+    "retry-axios": "^2.4.0",
+    "rollup": "^2.73.0",
+    "swagger-ui-express": "^4.3.0",
+    "uuid": "^3.4.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "chai-like": "^1.1.1",
+    "chai-subset": "^1.6.0",
+    "chai-things": "^0.2.0",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "ibm-openapi-validator": "^0.53.1",
+    "mocha": "^9.2.0",
+    "nodemon": "^2.0.7"
+  },
+  "engines": {
+    "node": "^12.13.1",
+    "npm": "^6.4.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,css,scss,html,xml}": [
+      "node non-shipped/scripts/copyright-lint.js"
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+nameOverride: "cm-gateway-api"
+fullnameOverride: "cm-gateway-api"
+environment: "development"
+
+replicaCount: 2
+annotations:
+  TOOLCHAIN_ID: null
+  GIT_URL: null
+  GIT_BRANCH: null
+  GIT_COMMIT: null
+  USER_NAME: null
+  APPLICATION_VERSION: null
+image:
+  repository : <helm-repo>
+  tag: <helm-tag>
+  pullPolicy: IfNotPresent
+  pullSecret: regsecret
+config:
+  probes: "enabled"
+  secretName : "cm-tls-secret-crt"
+appId:
+  url: "null"
+  tenantId: "null"
+  clientId: "null"
+  clientSecret: "null"
+  iamKey: "null"
+app:
+  env:
+  port: 3000
+  httpsEnabled:
+  logLevel: "info"
+  requestTimeout: "60s"
+log:
+  name: "console"
+  level: "debug"
+kafkaClient:
+  kafkaEnabled: "false"
+  kafkaProxyEnabled: "false"
+  brokers: "null"
+  brokersProxyPorts: "null"
+  username: "null"
+  password: "null"
+  topicName: "null"
+  healthTopicName: "null"
+  clientId: "null"
+  initialRetryTime: 0
+  retries: 0
+  keepAliveDelay: 0
+  proxyHost: "null"
+httpClient:
+  apiProtocol:
+  apiHost:
+  apiPort:
+  registerConsentEndpoint:
+service:
+  type: ClusterIP
+  externalPort: 3000
+  internalPort: 3000
+
+newRelic:
+  enabled: "false"
+  appName: "null"
+  licenseKey: "null"
+
+cluster:
+  ingress:
+    enabled: false
+    class:
+    subdomain:
+    secretName:
+    proxyReadTimeout:
+    proxyConnectTimeout:
+    proxySendTimeout:
+    limitRps: 1000
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: 1000m
+    memory: 256Mi
+  requests:
+    cpu: 250m
+    memory: 128Mi

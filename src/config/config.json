@@ -1,0 +1,46 @@
+{
+  "appID": {
+    "retries": 1,
+    "retryDelay": 3000,
+    "timeout": 10000
+  },
+  "app": {
+    "env": "development",
+    "port": 3000,
+    "httpsEnabled": false,
+    "requestTimeout": "60s",
+    "serverKeepAliveTimeout": 55000,
+    "serverHeadersTimeout": 56000
+  },
+  "log": {
+    "name": "console",
+    "level": "debug"
+  },
+  "kafkaClient": {
+    "topicName": "kafka-nodejs-console-sample-topic",
+    "healthTopicName": "healthcheck-topic",
+    "clientId": "async-register-consent-service",
+    "initialRetryTime": 300,
+    "retries": 5,
+    "keepAliveDelay": 60000,
+    "proxyHost": "127.0.0.1",
+    "proxyConnectionTimeout": 5000,
+    "limitSizeBatchMessages": 30,
+    "lingerTimeoutBatchMessages": 150
+  },
+  "keyProtect": {
+    "retries": 1,
+    "retryDelay": 3000,
+    "timeout": 10000
+},
+  "httpClient": {
+    "apiProtocol": "https",
+    "apiHost": "localhost",
+    "apiPort": "3002",
+    "registerConsentEndpoint": "/simple-consent/api/v1/consent",
+    "healthConsentEndpoint": "/simple-consent/api/v1/health",
+    "retries": 3,
+    "retryDelay": 3000,
+    "timeout": 10000
+  }
+}

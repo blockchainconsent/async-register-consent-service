@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "mocha-test": "mocha -r dotenv/config 'mochaTests/testFiles/*.js' --exit",
+    "coverage": "nyc npm run mocha-test"
+  },
+  "dependencies": {
+    "atob": "^2.1.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "hcls-common": "git+ssh://git@github.com:HCLS-Consent-Manager/hcls-common.git"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "chai-http": "^4.3.0",
+    "chai-like": "^1.1.1",
+    "chai-subset": "^1.6.0",
+    "chai-things": "^0.2.0",
+    "mocha": "^9.2.0"
+  }
+}

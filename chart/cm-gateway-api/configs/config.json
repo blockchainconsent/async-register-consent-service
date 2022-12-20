@@ -1,0 +1,42 @@
+{
+    "appID": {
+        "retries": 1,
+        "retryDelay": 3000,
+        "timeout": 10000
+    },
+    "app": {
+        "env": "{{ .Values.app.env }}",
+        "port": "{{ .Values.service.internalPort }}",
+        "httpsEnabled": "{{ .Values.app.httpsEnabled }}",
+        "logLevel": "{{ .Values.app.logLevel }}",
+        "requestTimeout": "{{ .Values.app.requestTimeout }}",
+        "serverKeepAliveTimeout": 55000,
+        "serverHeadersTimeout": 56000
+    },
+    "log": {
+        "name": "{{ .Values.log.name }}",
+        "level": "{{ .Values.log.level }}"
+    },
+    "kafkaClient": {
+        "topicName": "{{ .Values.kafkaClient.topicName }}",
+        "healthTopicName": "{{ .Values.kafkaClient.healthTopicName}}",
+        "clientId": "{{ .Values.kafkaClient.clientId }}",
+        "initialRetryTime": 300,
+        "retries": 5,
+        "keepAliveDelay": 60000,
+        "proxyHost": "{{ .Values.kafkaClient.proxyHost }}",
+        "proxyConnectionTimeout": 5000,
+        "limitSizeBatchMessages": 30,
+        "lingerTimeoutBatchMessages": 150
+    },
+    "httpClient": {
+        "apiProtocol": "{{ .Values.httpClient.apiProtocol }}",
+        "apiHost": "{{ .Values.httpClient.apiHost }}",
+        "apiPort": "{{ .Values.httpClient.apiPort }}",
+        "registerConsentEndpoint": "{{ .Values.httpClient.registerConsentEndpoint }}",
+        "healthConsentEndpoint": "/simple-consent/api/v1/health",
+        "retries": 1,
+        "retryDelay": 3000,
+        "timeout": 10000
+    }
+}

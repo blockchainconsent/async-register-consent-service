@@ -1,0 +1,389 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Consent Manager Async Register Consent Service",
+        "description": "Swagger Definition for Consent Manager Async Register Consent Service",
+        "version": "1.0.0"
+    },
+    "tags": [
+        {
+            "name": "Users"
+        },
+        {
+            "name": "Register"
+        }
+    ],
+    "servers": [],
+    "paths": {
+        "/gateway/api/v1/login": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "User login",
+                "description": "Login as a registered user",
+                "operationId": "user_login",
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/UserLogin"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful user login",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserLoginResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/UserLoginError"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/UserLoginServerError"
+                    }
+                }
+            }
+        },
+        "/gateway/api/v1/register-consent": {
+            "post": {
+                "summary": "register consent",
+                "operationId": "validate_register_params",
+                "tags": [
+                    "Register"
+                ],
+                "description": "Validate register params",
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "$ref": "#/components/requestBodies/Consent"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully registered consent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BasicResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/RegisterConsentBadRequest"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/RegisterConsentServerError"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "UserLoginRequest": {
+                "type": "object",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "description": "User email",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+",
+                        "example": "email@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "description": "User password",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+",
+                        "example": "password123"
+                    }
+                },
+                "description": "UserLoginRequest"
+            },
+            "UserLoginResponse": {
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "description": "Access token for login",
+                        "example": "xxxxxxxxx"
+                    },
+                    "id_token": {
+                        "type": "string",
+                        "description": "ID token",
+                        "example": "xxxxxxxxx"
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "description": "Type of access token for login",
+                        "example": "type"
+                    },
+                    "expires_in": {
+                        "type": "integer",
+                        "description": "The time when login has expired",
+                        "example": 1640000000
+                    },
+                    "scope": {
+                        "type": "string",
+                        "description": "Scope of UserLoginResponse",
+                        "example": "scope"
+                    }
+                },
+                "description": "UserLoginResponse",
+                "example": {
+                    "access_token": "xxxxxxxxx",
+                    "id_token": "xxxxxxxxx",
+                    "token_type": "string",
+                    "expires_in": 1640000000,
+                    "scope": "string"
+                }
+            },
+            "BasicResponse": {
+                "type": "object",
+                "properties": {
+                    "msg": {
+                        "type": "string",
+                        "description": "Response message",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "description": "Status code of response"
+                    }
+                },
+                "description": "BasicResponse",
+                "example": {
+                    "msg": "Successful request",
+                    "status": 200
+                }
+            },
+            "ServerErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Response message",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+",
+                        "example": "Error adding to queue"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "description": "Status code of response"
+                    }
+                },
+                "description": "ServerErrorResponse"
+            },
+            "BasicErrorMessage": {
+                "type": "object",
+                "required": [
+                    "error"
+                ],
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "Response message",
+                                "minLength": 1,
+                                "maxLength": 9999,
+                                "pattern": ".+",
+                                "example": "Failed to login user: The email or password that you entered is incorrect."
+                            }
+                        },
+                        "description": "Error object"
+                    }
+                },
+                "description": "BasicErrorMessage"
+            },
+             "ServerErrorMessage": {
+                "type": "object",
+                "required": [
+                    "error"
+                ],
+                "properties": {
+                    "error": {
+                        "type": "object",
+                        "properties": {
+                            "message": {
+                                "type": "string",
+                                "description": "Response message",
+                                "minLength": 1,
+                                "maxLength": 9999,
+                                "pattern": ".+",
+                                "example": "Failed to login user with AppID: Something went wrong"
+                            }
+                        },
+                        "description": "Error object"
+                    }
+                },
+                "description": "ServerErrorMessage"
+            },
+            "ConsentRequest": {
+                "type": "object",
+                "required": [
+                    "PatientID",
+                    "ServiceID",
+                    "TenantID",
+                    "DatatypeIDs",
+                    "ConsentOption"
+                ],
+                "description": "Object of consent request",
+                "properties": {
+                    "PatientID": {
+                        "type": "string",
+                        "description": "Patient ID",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+",
+                        "example": "patientID"
+                    },
+                    "ServiceID": {
+                        "type": "string",
+                        "description": "Service ID",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+",
+                        "example": "serviceID"
+                    },
+                    "TenantID": {
+                        "type": "string",
+                        "description": "Tenant ID",
+                        "minLength": 1,
+                        "maxLength": 9999,
+                        "pattern": ".+",
+                        "example": "tenantID"
+                    },
+                    "DatatypeIDs": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "description": "Datatype ID",
+                            "minLength": 1,
+                            "maxLength": 9999,
+                            "pattern": ".+",
+                            "example": "DatatypeIDs"
+                        },
+                        "description": "Datatype IDs"
+                    },
+                    "ConsentOption": {
+                        "type": "array",
+                        "default": ["write", "read"],
+                        "items": {
+                            "type": "string",
+                            "description": "Consent option",
+                            "minLength": 1,
+                            "maxLength": 9999,
+                            "pattern": ".+"
+                        },
+                        "description": "Consent Options"
+                    },
+                    "Expiration": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Timestamp at which the consent expires"
+                    }
+                }
+            }
+        },
+        "requestBodies": {
+            "UserLogin": {
+                "description": "Login credentials",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UserLoginRequest"
+                        }
+                    }
+                }
+            },
+            "Consent": {
+                "description": "Consent Object",
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ConsentRequest"
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "UserLoginError": {
+                "description": "Failed login due to invalid credentials",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BasicErrorMessage"
+                        }
+                    }
+                }
+            },
+            "UserLoginServerError": {
+                "description": "Failed login due to server error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ServerErrorMessage"
+                        }
+                    }
+                }
+            },
+            "RegisterConsentBadRequest": {
+                "description": "Failed to register consent",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BasicResponse"
+                        }
+                    }
+                }
+            },
+            "RegisterConsentServerError": {
+                "description": "Failed to register consent",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ServerErrorResponse"
+                        }
+                    }
+                }
+            },
+            "UnauthorizedError": {
+                "description": "Logged in user is unauthorized to make this request",
+                "content": {
+                    "text/plain": {
+                        "example": "Unauthorized"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ template "chart.fullname" . }}-env-configmap
+data:
+  PORT: {{ .Values.service.internalPort | quote}}
+  APP_ID_URL: {{ .Values.appId.url | quote}}
+  KAFKA_ENABLED: {{ .Values.kafkaClient.kafkaEnabled | quote}}
+  KAFKA_PROXY_ENABLED: {{ .Values.kafkaClient.kafkaProxyEnabled | quote}}
+  BROKERS: {{ .Values.kafkaClient.brokers | quote}}
+  BROKERS_PROXY_PORTS: {{ .Values.kafkaClient.brokersProxyPorts | quote}}
+  USERNAME: {{ .Values.kafkaClient.username | quote}}
+  PASSWORD: {{ .Values.kafkaClient.password | quote}}
+  NEW_RELIC_ENABLED: {{ .Values.newRelic.enabled | quote }}
+  NEW_RELIC_APP_NAME: {{ .Values.newRelic.appName | quote }}
+  NEW_RELIC_HIGH_SECURITY: "true"
+  NEW_RELIC_NO_CONFIG_FILE: "true"
